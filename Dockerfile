@@ -14,7 +14,3 @@ RUN conda install --quiet --yes -c conda-forge opencv=3.4.1
 RUN conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
-
-WORKDIR /app
-
-ADD ./notebook /app

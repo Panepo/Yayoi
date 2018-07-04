@@ -1,1 +1,0 @@
-docker run --rm -p 18888:8888 panepo/yayoi
