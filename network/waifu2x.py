@@ -19,8 +19,7 @@ class waifu2x:
     if (self.in_train):
       network.add(Conv2D(
         self.nOutputPlane[0], 
-        self.kH[0],
-        self.kW[0],
+        (self.kH[0],self.kW[0],)
         kernel_initializer='zero',
         padding='same', 
         use_bias=True, 
@@ -28,8 +27,7 @@ class waifu2x:
     else:
       network.add(Conv2D(
         self.nOutputPlane[0], 
-        self.kH[0],
-        self.kW[0],
+        (self.kH[0],self.kW[0],)
         kernel_initializer='zero',
         padding='same', 
         use_bias=True, 
@@ -39,8 +37,7 @@ class waifu2x:
     for i in range(1, self.layers-1):
       network.add(Conv2D(
         self.nOutputPlane[i], 
-        self.kH[i],
-        self.kW[i],
+        (self.kH[i],self.kW[i],)
         kernel_initializer='zero',
         padding='same', 
         use_bias=True))
