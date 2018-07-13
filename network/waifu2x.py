@@ -20,7 +20,7 @@ class waifu2x:
         filters = self.filters[0], 
         kernel_size = self.kernelSize[0],
         kernel_initializer='zero',
-        padding='same', 
+        padding='valid', 
         use_bias=True, 
         input_shape=self.inputShape))
     else:
@@ -28,7 +28,7 @@ class waifu2x:
         filters = self.filters[0], 
         kernel_size = self.kernelSize[0],
         kernel_initializer='zero',
-        padding='same', 
+        padding='valid', 
         use_bias=True, 
         input_shape=(None, None, 1)))
     
@@ -43,7 +43,7 @@ class waifu2x:
       network.add(LeakyReLU(0.1))
 
     network.add(Conv2D(filters=self.filters[self.layers-1], kernel_size = self.kernelSize[self.layers-1], kernel_initializer='zero',
-                       padding='same', use_bias=True))
+                       padding='valid', use_bias=True))
     adam = Adam(lr=self.lr)
     network.compile(optimizer=adam, loss='mean_squared_error', metrics=['mean_squared_error'])
     return network
