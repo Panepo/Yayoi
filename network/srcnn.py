@@ -15,19 +15,19 @@ class srcnn:
     network = Sequential()
 
     if (self.in_train):
-      network.add(Conv2D(filters=self.filter[0], nb_row=self.conv[0], nb_col=self.conv[0], init='glorot_uniform',
-                         activation='relu', padding='valid', bias=True, input_shape=self.inputShape))
+      network.add(Conv2D(filters=self.filter[0], nb_row=self.conv[0], nb_col=self.conv[0], kernel_initializer='glorot_uniform',
+                         activation='relu', padding='valid', use_bias=True, input_shape=self.inputShape))
     else:
-      network.add(Conv2D(filters=self.filter[0], nb_row=self.conv[0], nb_col=self.conv[0], init='glorot_uniform',
-                         activation='relu', padding='valid', bias=True, input_shape=(None, None, 1)))
+      network.add(Conv2D(filters=self.filter[0], nb_row=self.conv[0], nb_col=self.conv[0], kernel_initializer='glorot_uniform',
+                         activation='relu', padding='valid', use_bias=True, input_shape=(None, None, 1)))
     
     for i in range(1, self.layers-1):
-      network.add(Conv2D(filters=self.filter[i], nb_row=self.conv[i], nb_col=self.conv[i], init='glorot_uniform',
-                         activation='relu', padding='same', bias=True))
+      network.add(Conv2D(filters=self.filter[i], nb_row=self.conv[i], nb_col=self.conv[i], kernel_initializer='glorot_uniform',
+                         activation='relu', padding='same', use_bias=True))
       #network.add(BatchNormalization())
 
-    network.add(Conv2D(filters=self.filter[self.layers-1], nb_row=self.conv[self.layers-1], nb_col=self.conv[self.layers-1], init='glorot_uniform',
-                       activation='linear', padding='valid', bias=True))
+    network.add(Conv2D(filters=self.filter[self.layers-1], nb_row=self.conv[self.layers-1], nb_col=self.conv[self.layers-1], kernel_initializer='glorot_uniform',
+                       activation='linear', padding='valid', use_bias=True))
     adam = Adam(lr=self.lr)
     network.compile(optimizer=adam, loss='mean_squared_error', metrics=['mean_squared_error'])
     return network
