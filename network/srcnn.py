@@ -24,7 +24,7 @@ class srcnn:
     for i in range(1, self.layers-1):
       network.add(Conv2D(filters=self.filter[i], nb_row=self.conv[i], nb_col=self.conv[i], init='glorot_uniform',
                          activation='relu', padding='same', bias=True))
-      network.add(BatchNormalization())
+      #network.add(BatchNormalization())
 
     network.add(Conv2D(filters=self.filter[self.layers-1], nb_row=self.conv[self.layers-1], nb_col=self.conv[self.layers-1], init='glorot_uniform',
                        activation='linear', padding='valid', bias=True))
