@@ -6,9 +6,9 @@ from keras.optimizers import Adam
 class waifu2x:
   def __init__(self):
     self.layers = 7
-    self.filters = [32, 32, 64, 64, 128, 128, 1]
+    self.filters = [32, 32, 64, 64, 128, 128, 3]
     self.kernelSize = [(3,3), (3,3), (3,3), (3,3), (3,3), (3,3), (3,3)]
-    self.inputShape = (32, 32, 1)
+    self.inputShape = (32, 32, 3)
     self.lr = 0.0003
     self.in_train = False
 
@@ -20,7 +20,7 @@ class waifu2x:
         filters = self.filters[0], 
         kernel_size = self.kernelSize[0],
         kernel_initializer='zero',
-        padding='valid', 
+        padding='same',
         use_bias=True, 
         input_shape=self.inputShape))
     else:
@@ -28,10 +28,11 @@ class waifu2x:
         filters = self.filters[0], 
         kernel_size = self.kernelSize[0],
         kernel_initializer='zero',
-        padding='valid', 
+        padding='same', 
         use_bias=True, 
-        input_shape=(None, None, 1)))
+        input_shape=(None, None, 3)))
     
+    network.add(BatchNormalization())
     network.add(LeakyReLU(0.1))
     for i in range(1, self.layers-1):
       network.add(Conv2D(
@@ -40,10 +41,11 @@ class waifu2x:
         kernel_initializer='zero',
         padding='same', 
         use_bias=True))
+      network.add(BatchNormalization())
       network.add(LeakyReLU(0.1))
 
     network.add(Conv2D(filters=self.filters[self.layers-1], kernel_size = self.kernelSize[self.layers-1], kernel_initializer='zero',
-                       padding='valid', use_bias=True))
+                       padding='same', use_bias=True))
     adam = Adam(lr=self.lr)
     network.compile(optimizer=adam, loss='mean_squared_error', metrics=['mean_squared_error'])
     return network
