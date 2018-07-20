@@ -5,10 +5,16 @@ def h5DataRead(file):
   with h5py.File(file, 'r') as hf:
     data = np.array(hf.get('data'))
     label = np.array(hf.get('label'))
+    return data, label
+
+def h5DataReadSRCNN(file):
+  with h5py.File(file, 'r') as hf:
+    data = np.array(hf.get('data'))
+    label = np.array(hf.get('label'))
     train_data = np.transpose(data, (0, 2, 3, 1))
     train_label = np.transpose(label, (0, 2, 3, 1))
     return train_data, train_label
-    
+
 def h5DataWrite(data, labels, output_filename):
   x = data.astype(np.float32)
   y = labels.astype(np.float32)

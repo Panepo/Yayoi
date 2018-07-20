@@ -10,6 +10,7 @@ class srcnn:
     self.inputShape = (32, 32, 1)
     self.lr = 0.0003
     self.in_train = False
+    self.dataPath = ""
 
   def network(self):
     network = Sequential()
@@ -31,3 +32,7 @@ class srcnn:
     adam = Adam(lr=self.lr)
     network.compile(optimizer=adam, loss='mean_squared_error', metrics=['mean_squared_error'])
     return network
+
+  def modelSave(self):
+    model = self.network()
+    

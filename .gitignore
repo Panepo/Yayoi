@@ -120,3 +120,5 @@ $RECYCLE.BIN/
 image/
 imageTrain/
 imageValidate/
+imageTrain*/
+imageValidate*/
