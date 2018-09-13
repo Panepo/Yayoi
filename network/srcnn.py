@@ -21,7 +21,7 @@ class srcnn:
     else:
       network.add(Conv2D(filters=self.filter[0], kernel_size = self.kernelSize[0], kernel_initializer='glorot_uniform',
                          activation='relu', padding='valid', use_bias=True, input_shape=(None, None, 1)))
-    
+
     for i in range(1, self.layers-1):
       network.add(Conv2D(filters=self.filter[i], kernel_size = self.kernelSize[i], kernel_initializer='glorot_uniform',
                          activation='relu', padding='same', use_bias=True))
@@ -32,7 +32,3 @@ class srcnn:
     adam = Adam(lr=self.lr)
     network.compile(optimizer=adam, loss='mean_squared_error', metrics=['mean_squared_error'])
     return network
-
-  def modelSave(self):
-    model = self.network()
-    
